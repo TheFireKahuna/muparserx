@@ -114,6 +114,16 @@ if(USE_WIDE_STRING)
     add_compile_definitions(MUP_USE_WIDE_STRING)
 endif(USE_WIDE_STRING)
 
+option(USE_AVX2 "use AVX2 instruction set" OFF)
+if(USE_AVX2)
+    add_compile_options(/arch:AVX2)
+endif(USE_AVX2)
+
+option(USE_AVX512 "use AVX512 instruction set" OFF)
+if(USE_AVX512)
+    add_compile_options(/arch:AVX512)
+endif(USE_AVX512)
+
 ########################################################################
 # Print summary
 ########################################################################

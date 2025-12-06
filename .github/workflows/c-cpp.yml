@@ -1,0 +1,48 @@
+name: C/C++ CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        include:
+          - architecture: x64
+            os: windows-2025
+            variant: avx2
+          - architecture: x64
+            os: windows-2025
+            variant: avx512
+          - architecture: ARM64
+            os: windows-11-arm
+            variant: ""
+
+    runs-on: ${{ matrix.os }}
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Configure CMake
+      run: |
+        if ("${{ matrix.variant }}" -eq "avx2") {
+          cmake -S . -B build -A ${{ matrix.architecture }} -DUSE_WIDE_STRING=ON -DUSE_AVX2=ON
+        } elseif ("${{ matrix.variant }}" -eq "avx512") {
+          cmake -S . -B build -A ${{ matrix.architecture }} -DUSE_WIDE_STRING=ON -DUSE_AVX512=ON
+        } else {
+          cmake -S . -B build -A ${{ matrix.architecture }} -DUSE_WIDE_STRING=ON
+        }
+
+    - name: Build
+      run: cmake --build build --config Release
+
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: muparserx-msvc-release-${{ matrix.architecture }}${{ matrix.variant && format('-{0}', matrix.variant) || '' }}
+        path: |
+          build/Release/*.lib
+          parser/*.h
+          parser/*.cpp

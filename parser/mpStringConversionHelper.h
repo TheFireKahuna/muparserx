@@ -70,7 +70,7 @@ class StringConversionHelper
             char* endptr;
             double value = std::strtod(str, &endptr);
             success = (endptr != str);
-            parsedLen = endptr - str;
+            parsedLen = (int)(endptr - str);
             return value;
         }
 
@@ -79,7 +79,7 @@ class StringConversionHelper
             wchar_t* endptr;
             double value = std::wcstod(str, &endptr);
             success = (endptr != str);
-            parsedLen = endptr - str;
+            parsedLen = (int)(endptr - str);
             return value;
         }
 };
