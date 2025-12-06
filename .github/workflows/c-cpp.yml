@@ -17,6 +17,9 @@ jobs:
           - architecture: x64
             os: windows-2025
             variant: avx512
+          - architecture: x64
+            os: windows-2025
+            variant: avx10
           - architecture: ARM64
             os: windows-11-arm
             variant: ""
@@ -31,6 +34,8 @@ jobs:
           cmake -S . -B build -A ${{ matrix.architecture }} -DUSE_WIDE_STRING=ON -DUSE_AVX2=ON
         } elseif ("${{ matrix.variant }}" -eq "avx512") {
           cmake -S . -B build -A ${{ matrix.architecture }} -DUSE_WIDE_STRING=ON -DUSE_AVX512=ON
+        } elseif ("${{ matrix.variant }}" -eq "avx10") {
+          cmake -S . -B build -A ${{ matrix.architecture }} -DUSE_WIDE_STRING=ON -DUSE_AVX10_1=ON
         } else {
           cmake -S . -B build -A ${{ matrix.architecture }} -DUSE_WIDE_STRING=ON
         }

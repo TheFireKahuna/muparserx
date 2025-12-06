@@ -124,6 +124,11 @@ if(USE_AVX512)
     add_compile_options(/arch:AVX512)
 endif(USE_AVX512)
 
+option(USE_AVX10_1 "use AVX10.1 instruction set" OFF)
+if(USE_AVX10_1)
+    add_compile_options(/arch:AVX10.1)
+endif(USE_AVX10_1)
+
 ########################################################################
 # Print summary
 ########################################################################
