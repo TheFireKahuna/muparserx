@@ -51,13 +51,13 @@ jobs:
     - name: Configure CMake
       run: |
         if ("${{ matrix.variant }}" -eq "avx2") {
-          cmake -S . -B build -A ${{ matrix.architecture }} -DUSE_WIDE_STRING=ON -DUSE_AVX2=ON
+          cmake -S . -B build -A ${{ matrix.architecture }} -DUSE_WIDE_STRING=ON -DUSE_AVX2=ON -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
         } elseif ("${{ matrix.variant }}" -eq "avx512") {
-          cmake -S . -B build -A ${{ matrix.architecture }} -DUSE_WIDE_STRING=ON -DUSE_AVX512=ON
+          cmake -S . -B build -A ${{ matrix.architecture }} -DUSE_WIDE_STRING=ON -DUSE_AVX512=ON -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
         } elseif ("${{ matrix.variant }}" -eq "avx10") {
-          cmake -S . -B build -A ${{ matrix.architecture }} -DUSE_WIDE_STRING=ON -DUSE_AVX10_1=ON
+          cmake -S . -B build -A ${{ matrix.architecture }} -DUSE_WIDE_STRING=ON -DUSE_AVX10_1=ON -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
         } else {
-          cmake -S . -B build -A ${{ matrix.architecture }} -DUSE_WIDE_STRING=ON
+          cmake -S . -B build -A ${{ matrix.architecture }} -DUSE_WIDE_STRING=ON -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
         }
 
     - name: Build
@@ -69,5 +69,6 @@ jobs:
         name: muparserx-msvc-${{ matrix.build_type }}-${{ matrix.architecture }}${{ matrix.variant && format('-{0}', matrix.variant) || '' }}
         path: |
           build/${{ matrix.build_type }}/*.lib
+          build/${{ matrix.build_type }}/*.pdb
           parser/*.h
           parser/*.cpp
