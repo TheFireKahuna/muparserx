@@ -265,22 +265,22 @@ public:
 	{
 		using namespace std;
 
-		cout << szTitle << _T("\n");
-		cout << _T("------------------\n");
-		cout << _T("Cols: ") << GetCols() << _T("\n");
-		cout << _T("Rows: ") << GetRows() << _T("\n");
-		cout << _T("Dim:  ") << GetDim() << _T("\n");
+		cout << szTitle << "\n";
+		cout << "------------------\n";
+		cout << "Cols: " << GetCols() << "\n";
+		cout << "Rows: " << GetRows() << "\n";
+		cout << "Dim:  " << GetDim() << "\n";
 
 		for (int i = 0; i < m_nRows; ++i)
 		{
 			for (int j = 0; j < m_nCols; ++j)
 			{
-				cout << At(i, j) << _T("  ");
+				cout << At(i, j) << "  ";
 			}
-			cout << _T("\n");
+			cout << "\n";
 		}
 
-		cout << _T("\n\n");
+		cout << "\n\n";
 	}
 
 	//---------------------------------------------------------------------------------------------
