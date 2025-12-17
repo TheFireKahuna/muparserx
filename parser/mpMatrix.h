@@ -91,7 +91,7 @@ public:
 	/* \brief Constructs a Matrix object representing a vector
 	*/
 	Matrix(const std::vector<T> &v)
-		:m_nRows(v.size())
+		:m_nRows((int)v.size())
 		, m_nCols(1)
 		, m_eStorageScheme(mssROWS_FIRST)
 		, m_vData(v)
