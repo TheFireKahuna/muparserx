@@ -14,6 +14,14 @@ jobs:
           - architecture: x64
             os: windows-2025
             build_type: Release
+            variant: sse2
+          - architecture: x64
+            os: windows-2025
+            build_type: Debug
+            variant: sse2
+          - architecture: x64
+            os: windows-2025
+            build_type: Release
             variant: avx2
           - architecture: x64
             os: windows-2025
@@ -50,7 +58,9 @@ jobs:
 
     - name: Configure CMake
       run: |
-        if ("${{ matrix.variant }}" -eq "avx2") {
+        if ("${{ matrix.variant }}" -eq "sse2") {
+          cmake -S . -B build -A ${{ matrix.architecture }} -DUSE_WIDE_STRING=ON -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
+        } elseif ("${{ matrix.variant }}" -eq "avx2") {
           cmake -S . -B build -A ${{ matrix.architecture }} -DUSE_WIDE_STRING=ON -DUSE_AVX2=ON -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
         } elseif ("${{ matrix.variant }}" -eq "avx512") {
           cmake -S . -B build -A ${{ matrix.architecture }} -DUSE_WIDE_STRING=ON -DUSE_AVX512=ON -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
